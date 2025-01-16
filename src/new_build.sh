@@ -216,7 +216,7 @@ if [ "$LOCAL_MIRROR" = true ]; then
   fi
   if [ "$SYNC_MIRROR" = true ]; then
     echo ">> [$(date)] Syncing mirror repository" | tee -a "$repo_log"
-    repo sync -j1 -c --no-clone-bundle --optimized-fetch --prune --force-sync --no-clone-bundle &>> "$repo_log"
+    repo sync -j1 -c --optimized-fetch --prune --force-sync --no-clone-bundle &>> "$repo_log"
 
   else
     echo ">> [$(date)] Sync mirror repository disabled" | tee -a "$repo_log"
