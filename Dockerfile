@@ -25,23 +25,23 @@ ENV USER root
 ENV USE_CCACHE 1
 
 # By default we won't include the components from vendor/partner-gms
-ENV WITH_GMS false
+ENV WITH_GMS true
 
 # ccache maximum size. It should be a number followed by an optional suffix: k,
 # M, G, T (decimal), Ki, Mi, Gi or Ti (binary). The default suffix is G. Use 0
 # for no limit.
-ENV CCACHE_SIZE 50G
+ENV CCACHE_SIZE 150G
 
 # We need to specify the ccache binary since it is no longer packaged along with AOSP
 ENV CCACHE_EXEC /usr/bin/ccache
 
 # Environment for the LineageOS branches name
 # See https://github.com/LineageOS/android/branches for possible options
-ENV BRANCH_NAME 'lineage-16.0'
+ENV BRANCH_NAME 'lineage-22.1'
 
 # Environment for the device list (separate by comma if more than one)
 # eg. DEVICE_LIST=hammerhead,bullhead,angler
-ENV DEVICE_LIST ''
+ENV DEVICE_LIST 'kebab'
 
 # Release type string
 ENV RELEASE_TYPE 'UNOFFICIAL'
@@ -51,12 +51,12 @@ ENV RELEASE_TYPE 'UNOFFICIAL'
 ENV OTA_URL ''
 
 # User identity
-ENV USER_NAME 'LineageOS Buildbot'
-ENV USER_MAIL 'lineageos-buildbot@docker.host'
+ENV USER_NAME 'Oleg XWOKU'
+ENV USER_MAIL 'olegxwoku@pc.local'
 
 # Include proprietary files, downloaded automatically from github.com/TheMuppets/ and gitlab.com/the-muppets/
 # Only some branches are supported
-ENV INCLUDE_PROPRIETARY true
+ENV INCLUDE_PROPRIETARY false
 
 # Mount an overlay filesystem over the source dir to do each build on a clean source
 ENV BUILD_OVERLAY false
@@ -85,10 +85,10 @@ ENV ANDROID_JACK_VM_ARGS "-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4G"
 ENV CUSTOM_PACKAGES ''
 
 # Sign the builds with the keys in $KEYS_DIR
-ENV SIGN_BUILDS false
+ENV SIGN_BUILDS true
 
 # When SIGN_BUILDS = true but no keys have been provided, generate a new set with this subject
-ENV KEYS_SUBJECT '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+ENV KEYS_SUBJECT '/C=RU/ST=Moscow/L=Moscow/O=Android/OU=Android/CN=Android/emailAddress=olegxwoku@pc.local'
 
 # Move the resulting zips to $ZIP_DIR/$codename instead of $ZIP_DIR/
 ENV ZIP_SUBDIR true
@@ -142,7 +142,7 @@ ENV CALL_REPO_SYNC true
 ENV CALL_GIT_LFS_PULL false
 ENV APPLY_PATCHES true
 ENV PREPARE_BUILD_ENVIRONMENT true
-ENV CALL_BREAKFAST true
+ENV CALL_BREAKFAST false
 ENV CALL_MKA true
 ENV ZIP_UP_IMAGES false
 ENV MAKE_IMG_ZIP_FILE false

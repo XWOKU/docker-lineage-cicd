@@ -209,14 +209,14 @@ if [ "$LOCAL_MIRROR" = true ]; then
   if [ "$INIT_MIRROR" = true ]; then
     if [ ! -d .repo ]; then
       echo ">> [$(date)] Initializing mirror repository" | tee -a "$repo_log"
-      ( yes||: ) | repo init -u https://github.com/LineageOS/mirror --mirror --no-clone-bundle -p linux --git-lfs &>> "$repo_log"
+      ( yes||: ) | repo init --depth=1 -u https://github.com/LineageOS/mirror --mirror --no-clone-bundle -p linux --git-lfs &>> "$repo_log"
     fi
   else
     echo ">> [$(date)] Initializing mirror repository disabled" | tee -a "$repo_log"
   fi
   if [ "$SYNC_MIRROR" = true ]; then
     echo ">> [$(date)] Syncing mirror repository" | tee -a "$repo_log"
-    repo sync "${jobs_arg[@]}" "${retry_fetches_arg[@]}" --force-sync --no-clone-bundle &>> "$repo_log"
+    repo sync -j1 -c --no-clone-bundle --optimized-fetch --prune --force-sync --no-clone-bundle &>> "$repo_log"
 
   else
     echo ">> [$(date)] Sync mirror repository disabled" | tee -a "$repo_log"
@@ -258,9 +258,9 @@ for codename in ${devices//,/ }; do
     if [ "$CALL_REPO_INIT" = true ]; then
       echo ">> [$(date)] (Re)initializing branch repository" | tee -a "$repo_log"
       if [ "$LOCAL_MIRROR" = true ]; then
-        ( yes||: ) | repo init -u https://github.com/LineageOS/android.git --reference "$MIRROR_DIR" -b "$branch" -g default,-darwin,-muppets,muppets_"${codename}" --git-lfs &>> "$repo_log"
+        ( yes||: ) | repo init --depth=1 -u https://github.com/LineageOS/android.git --reference "$MIRROR_DIR" -b "$branch" -g default,-darwin,-muppets,muppets_"${codename}" --git-lfs &>> "$repo_log"
       else
-        ( yes||: ) | repo init -u https://github.com/LineageOS/android.git -b "$branch" -g default,-darwin,-muppets,muppets_"${codename}" --git-lfs &>> "$repo_log"
+        ( yes||: ) | repo init --depth=1 -u https://github.com/LineageOS/android.git -b "$branch" -g default,-darwin,-muppets,muppets_"${codename}" --git-lfs &>> "$repo_log"
       fi
     else
       echo ">> [$(date)] Calling repo init disabled"
@@ -271,7 +271,7 @@ for codename in ${devices//,/ }; do
     if [ "$CALL_REPO_SYNC" = true ]; then
       set +eu
       echo ">> [$(date)] Syncing branch repository" | tee -a "$repo_log"
-      repo sync "${jobs_arg[@]}" "${retry_fetches_arg[@]}" --current-branch --force-sync &>> "$repo_log"
+      repo sync -c --no-clone-bundle --optimized-fetch --prune -j1 --current-branch --force-sync &>> "$repo_log"
       repo_sync_returncode=$?
       set -eu
     else
