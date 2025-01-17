@@ -8,4 +8,3 @@ See the [LineageOS for microG project wiki](https://github.com/lineageos4microg/
 
 
 
-
