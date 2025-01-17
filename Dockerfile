@@ -17,6 +17,9 @@ ENV USERSCRIPTS_DIR /srv/userscripts
 ENV DEBIAN_FRONTEND noninteractive
 ENV USER root
 
+# My custom
+ENV PARALLEL_JOBS 16
+
 # Configurable environment variables
 ####################################
 
