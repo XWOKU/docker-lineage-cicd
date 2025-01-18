@@ -33,7 +33,7 @@ ENV WITH_GMS true
 # ccache maximum size. It should be a number followed by an optional suffix: k,
 # M, G, T (decimal), Ki, Mi, Gi or Ti (binary). The default suffix is G. Use 0
 # for no limit.
-ENV CCACHE_SIZE 50G
+ENV CCACHE_SIZE 100G
 
 # We need to specify the ccache binary since it is no longer packaged along with AOSP
 ENV CCACHE_EXEC /usr/bin/ccache
