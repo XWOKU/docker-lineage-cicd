@@ -216,7 +216,7 @@ if [ "$LOCAL_MIRROR" = true ]; then
   fi
   if [ "$SYNC_MIRROR" = true ]; then
     echo ">> [$(date)] Syncing mirror repository" | tee -a "$repo_log"
-    repo sync -j16 -c --optimized-fetch --prune --force-sync --no-clone-bundle &>> "$repo_log"
+    repo sync -j1 -c --optimized-fetch --prune --force-sync --no-clone-bundle &>> "$repo_log"
 
   else
     echo ">> [$(date)] Sync mirror repository disabled" | tee -a "$repo_log"
@@ -271,7 +271,7 @@ for codename in ${devices//,/ }; do
     if [ "$CALL_REPO_SYNC" = true ]; then
       set +eu
       echo ">> [$(date)] Syncing branch repository" | tee -a "$repo_log"
-      repo sync -c --no-clone-bundle --optimized-fetch --prune -j16 --current-branch --force-sync &>> "$repo_log"
+      repo sync -c --no-clone-bundle --optimized-fetch --prune -j1 --current-branch --force-sync &>> "$repo_log"
       repo_sync_returncode=$?
       set -eu
     else
